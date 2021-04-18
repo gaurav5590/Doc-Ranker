@@ -1,3 +1,3 @@
 # Doc Ranker
 
-This is the coebase to implement document ranking using forte and texar
+This is the codebase to implement document ranking using forte and texar
