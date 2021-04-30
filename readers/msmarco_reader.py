@@ -1,5 +1,5 @@
 """
-Script for MSMARCO Reader.
+Script for MSMARCO Reader
 """
 import argparse
 
