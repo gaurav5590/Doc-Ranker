@@ -9,8 +9,9 @@ import yaml
 from forte.common.configuration import Config
 from forte.data.data_pack import DataPack
 from forte.pipeline import Pipeline
-from forte.processors.ir import ElasticSearchPackIndexProcessor
+from elastic_search_index_processor import ElasticSearchTextIndexProcessor
 from forte.data.readers import MSMarcoPassageReader
+
 
 
 def main(dataset_dir: str):
@@ -25,8 +26,9 @@ def main(dataset_dir: str):
     pipeline = Pipeline[DataPack]()
 
     pipeline.set_reader(MSMarcoPassageReader())
-    pipeline.add(ElasticSearchPackIndexProcessor(), config=config.create_index)
+    pipeline.add(ElasticSearchTextIndexProcessor(), config=config.create_index)
     pipeline.run(dataset_dir)
+
 
 
 if __name__ == '__main__':

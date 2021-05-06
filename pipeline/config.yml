@@ -12,3 +12,30 @@ create_index:
     other_kwargs:
       request_timeout: 60
       refresh: true
+
+query_creator:
+  size: 5
+  field: "content"
+  query_pack_name: "query"
+
+full_ranker:
+  query_pack_name: "query"
+  index_config:
+    index_name: "elastic_index"
+    hosts: "localhost:9200"
+    algorithm: "bm25"
+  field: "content"
+  response_pack_name_prefix: "passage"
+
+
+evaluator:
+  pack_name: "query"
+  ground_truth_file: "data/collectionandqueries/qrels.dev.small.tsv"
+  input_file: "data/collectionandqueries/queries.dev.small.tsv"
+  output_file: "output/results_dev.tsv"
+
+reader:
+  pack_name: "query"
+
+
+

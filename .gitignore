@@ -1,2 +1,4 @@
 # Ignore the data/ 	directory
 data/
+*.pyc
+*.DS_Store
