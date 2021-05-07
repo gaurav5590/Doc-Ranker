@@ -36,10 +36,9 @@ if __name__ == '__main__':
     pipeline.add(ElasticSearchProcessor(), config=config.full_ranker)
     pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
     pipeline.initialize()
-
     for idx, m_pack in enumerate(pipeline.process_dataset(input_file)):
-        if (idx + 1) % 1000 == 0:
+        if (idx + 1) % 5 == 0:
             print(f"Processed {idx + 1} examples")
 
-    scores = pipeline.evaluate()
+    scores = pipeline.components[-1].get_result()
     print(scores)

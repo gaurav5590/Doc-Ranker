@@ -14,7 +14,7 @@ create_index:
       refresh: true
 
 query_creator:
-  size: 5
+  size: 100
   field: "content"
   query_pack_name: "query"
 
@@ -30,7 +30,7 @@ full_ranker:
 
 evaluator:
   pack_name: "query"
-  ground_truth_file: "data/collectionandqueries/qrels.dev.small.tsv"
+  ground_truth_file: "../data/collectionandqueries/qrels.dev.small.tsv"
   input_file: "data/collectionandqueries/queries.dev.small.tsv"
   output_file: "output/results_dev.tsv"
 

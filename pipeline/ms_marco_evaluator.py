@@ -44,15 +44,12 @@ class MSMarcoEvaluator(Evaluator[MultiPack]):
                     'please double check the reader.')
             self.predicted_results.append((doc_id, pid, str(rank)))
             rank += 1
-        print(self.predicted_results)
 
     def get_result(self):
         curr_dir = os.path.dirname(__file__)
         output_file = os.path.join(curr_dir, self.configs.output_file)
         gt_file = os.path.join(curr_dir, self.configs.ground_truth_file)
-        print(curr_dir, output_file)
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
-        print(curr_dir, output_file)
 
         if self._score is None:
             with open(output_file, "w") as f:
@@ -60,7 +57,6 @@ class MSMarcoEvaluator(Evaluator[MultiPack]):
                     f.write('\t'.join(result) + '\n')
 
             self._score = compute_metrics_from_files(gt_file, output_file)
-            print(self._score)
         return self._score
 
     @classmethod
