@@ -14,7 +14,7 @@ create_index:
       refresh: true
 
 query_creator:
-  size: 100
+  size: 10
   field: "content"
   query_pack_name: "query"
 
@@ -36,6 +36,9 @@ evaluator:
 
 reader:
   pack_name: "query"
+
+reranker:
+  size: 10
 
 
 

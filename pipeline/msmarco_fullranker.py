@@ -42,3 +42,4 @@ if __name__ == '__main__':
 
     scores = pipeline.components[-1].get_result()
     print(scores)
+    
