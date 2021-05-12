@@ -10,7 +10,8 @@ from forte.common.configuration import Config
 from forte.data.data_pack import DataPack
 from forte.pipeline import Pipeline
 from elastic_search_index_processor import ElasticSearchTextIndexProcessor
-from forte.data.readers import MSMarcoPassageReader
+# from forte.data.readers import MSMarcoPassageReader
+from ms_marco_passage_reader import MSMarcoPassageReader
 
 
 
