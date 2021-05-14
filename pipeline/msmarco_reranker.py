@@ -16,7 +16,7 @@ from query_file_reader import EvalReader
 from ms_marco_evaluator import MSMarcoEvaluator
 from transformers import AutoTokenizer
 from model import TransformerModel
-
+from ms_marco_eval import compute_metrics_from_files
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -61,25 +61,35 @@ if __name__ == '__main__':
         query_passage_dict[query_id][1][rank-1] = passage_id
         query_passage_dict[query_id][2][rank-1] = passage_text
 
+    tokenizer = AutoTokenizer.from_pretrained(config.reranker.model_name)
+    model = TransformerModel(config.reranker.model_name)
+    model.eval()
+
+    curr_dir = os.path.dirname(__file__)
+    output_file = os.path.join(curr_dir, config.evaluator.output_file)
+    gt_file = os.path.join(curr_dir, config.evaluator.ground_truth_file)
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    f = open(output_file, "w")
 
     for query_id in query_passage_dict.keys():
         docs_id = query_passage_dict[query_id][1]
         docs_content = query_passage_dict[query_id][2]
         query_text = query_passage_dict[query_id][0]
         ## Tokenization
-
-        tokenizer = AutoTokenizer.from_pretrained(config.reranker.model_name)
         encodings = tokenizer([query_text] * len(docs_content), docs_content,padding = True, max_length=max_seq_length, return_tensors= 'pt')
-
-        model = TransformerModel(config.reranker.model_name)
-        model.eval()
 
         with torch.no_grad():
             scores = model(encodings, train=False)
         doc_scores = list(zip(docs_id, scores))
         doc_scores = sorted(doc_scores, key = lambda x: x[1], reverse=True)
-        doc_ranks = [[query_id, row[0], idx+1] for idx, row in enumerate(doc_scores)]
-        print(doc_ranks)
+        doc_ranks = [[query_id, row[0], str(idx+1)] for idx, row in enumerate(doc_scores)]
+        print(doc_scores)
+        [f.write('\t'.join(result) + '\n') for result in doc_ranks]
+    
+    f.close()
+    scores = compute_metrics_from_files(gt_file, output_file)
+    print(scores)
+
 
 
 
