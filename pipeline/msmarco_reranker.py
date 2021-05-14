@@ -5,7 +5,7 @@ import argparse
 import os
 
 import yaml
-
+import torch
 from forte.common.configuration import Config
 from forte.data.data_pack import DataPack
 from forte.data.multi_pack import MultiPack
@@ -14,6 +14,10 @@ from forte.processors.ir import (ElasticSearchQueryCreator, ElasticSearchProcess
 from forte.data.readers import MSMarcoPassageReader
 from query_file_reader import EvalReader
 from ms_marco_evaluator import MSMarcoEvaluator
+from transformers import AutoTokenizer
+from model import TransformerModel
+from ms_marco_eval import compute_metrics_from_files
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--config_file", default="./config.yml",
@@ -37,18 +41,63 @@ if __name__ == '__main__':
     pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
     pipeline.initialize()
     for idx, m_pack in enumerate(pipeline.process_dataset(input_file)):
-        if (idx + 1) % 5 == 0:
+        if (idx + 1) % 50 == 0:
             print(f"Processed {idx + 1} examples")
 
     query_passage_dict = {}
     max_rank = config.reranker.size
-    for elem in pipeline.components[-1].predicted_results:
+    max_seq_length = config.reranker.max_seq_length
+    for elem in pipeline.components[-1].predicted_text:
         query_id = elem[0]
-        passage_id = elem[1]
-        rank = int(elem[2])
+        query_text = elem[1]
+        passage_id = elem[2]
+        passage_text = elem[3]
+        rank = int(elem[4])
+
+        ## Format of the dictionary
+        ## key (query_id): value-[query text, list of all doc ids, list of all doc text]
         if query_id not in query_passage_dict.keys():
-            query_passage_dict[query_id] = ['0'] * max_rank
-        query_passage_dict[query_id][rank - 1] = passage_id
+            query_passage_dict[query_id] = [query_text,['0'] * (max_rank), ['0'] * (max_rank)]
+        query_passage_dict[query_id][1][rank-1] = passage_id
+        query_passage_dict[query_id][2][rank-1] = passage_text
+
+    tokenizer = AutoTokenizer.from_pretrained(config.reranker.model_name)
+    model = TransformerModel(config.reranker.model_name)
+    model.eval()
+
+    curr_dir = os.path.dirname(__file__)
+    output_file = os.path.join(curr_dir, config.evaluator.output_file)
+    gt_file = os.path.join(curr_dir, config.evaluator.ground_truth_file)
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    f = open(output_file, "w")
+
+    for query_id in query_passage_dict.keys():
+        docs_id = query_passage_dict[query_id][1]
+        docs_content = query_passage_dict[query_id][2]
+        query_text = query_passage_dict[query_id][0]
+        ## Tokenization
+        encodings = tokenizer([query_text] * len(docs_content), docs_content,padding = True, max_length=max_seq_length, return_tensors= 'pt')
+
+        with torch.no_grad():
+            scores = model(encodings, train=False)
+        doc_scores = list(zip(docs_id, scores))
+        doc_scores = sorted(doc_scores, key = lambda x: x[1], reverse=True)
+        doc_ranks = [[query_id, row[0], str(idx+1)] for idx, row in enumerate(doc_scores)]
+        print(doc_scores)
+        [f.write('\t'.join(result) + '\n') for result in doc_ranks]
+    
+    f.close()
+    scores = compute_metrics_from_files(gt_file, output_file)
+    print(scores)
+
+
+
+
+
+
+
+
+    
 
 
 
