@@ -42,5 +42,11 @@ reranker:
   model_name: 'amberoad/bert-multilingual-passage-reranking-msmarco'
   max_seq_length: 512
 
+qasystem:
+  size: 2
+  task_name: "question-answering"
+  model_name: "deepset/roberta-base-squad2"
+
+
 
 
