@@ -2,11 +2,12 @@
 import torch.nn as nn
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 
-class TransformerModel(nn.Module):
+class MSMarcoTransformerModel(nn.Module):
 
     def __init__(self, model_name):
-        super(TransformerModel, self).__init__()
+        super(MSMarcoTransformerModel, self).__init__()
         self.encoder = AutoModelForSequenceClassification.from_pretrained(model_name)
         self.softmax = nn.Softmax(dim = 1)
 
@@ -18,3 +19,16 @@ class TransformerModel(nn.Module):
             return predictions[:,1]
         else:
             return None  ## Include only if training the model
+
+
+class QAModel(nn.Module):
+
+    def __init__(self, task_name, model_name) -> None:
+        super(QAModel).__init__()
+        self.qa_pipeline = pipeline(task_name, model=model_name, tokenizer=model_name)
+    def forward(self, query_doc_input, train = False):
+        result = self.qa_pipeline(query_doc_input)
+        if not train:
+            return result
+        else:
+            return None ## Include only if training the model
