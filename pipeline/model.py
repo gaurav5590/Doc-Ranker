@@ -23,8 +23,8 @@ class MSMarcoTransformerModel(nn.Module):
 
 class QAModel(nn.Module):
 
-    def __init__(self, task_name, model_name) -> None:
-        super(QAModel).__init__()
+    def __init__(self, task_name, model_name):
+        super(QAModel, self).__init__()
         self.qa_pipeline = pipeline(task_name, model=model_name, tokenizer=model_name)
     def forward(self, query_doc_input, train = False):
         result = self.qa_pipeline(query_doc_input)
