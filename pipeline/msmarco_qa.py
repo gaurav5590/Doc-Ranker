@@ -15,7 +15,7 @@ from forte.data.readers import MSMarcoPassageReader
 from query_file_reader import EvalReader
 from ms_marco_evaluator import MSMarcoEvaluator
 from transformers import AutoTokenizer
-from model import MSMarcoTransformerModel
+from model import MSMarcoTransformerModel, QAModel
 from ms_marco_eval import compute_metrics_from_files
 import utils
 
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     output_file = os.path.join(curr_dir, config.evaluator.output_file)
     gt_file = os.path.join(curr_dir, config.evaluator.ground_truth_file)
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
-    f = open(output_file, "w")
+    f = open(output_file, "w", encoding='utf-8')
 
     ### Create a dictionary to store fullraraking output
     query_all_ids, query_all_text, doc_all_ids, doc_all_text = utils.vectorize_fullranking_data(config, pipeline)
@@ -70,25 +70,46 @@ if __name__ == '__main__':
 
 
     ## Output post processing
-    doc_scores = list(zip(query_all_ids, doc_all_ids, scores))
-    doc_scores = sorted(doc_scores, key = lambda x: (x[0],x[2]), reverse=True)
+    doc_scores = list(zip(query_all_ids, query_all_text, doc_all_ids, doc_all_text, scores))
+    doc_scores = sorted(doc_scores, key = lambda x: (x[0],x[4]), reverse=True)
+    
     doc_ranks = []
     rank = 1
     prev_qid = None
     for elem in doc_scores:
-        q_id, doc_id, score = elem
+        q_id, q_text, doc_id, doc_text, score = elem
         if q_id!= prev_qid:
             rank = 1
             prev_qid = q_id
-        doc_ranks.append([q_id, doc_id, str(rank)])
+        doc_ranks.append([q_id, q_text, doc_id, doc_text, score, rank])
         rank+=1
-    
-    [f.write('\t'.join(result) + '\n') for result in doc_ranks]
-    f.close()
 
+    # QA starts from here =============================================================
+
+    # Filter N docs for QA
+    doc_ranks_filtered = [row for row in doc_ranks if row[5]<=config.qasystem.size]
+
+    # Prepare QA input
+    qa_input = [{'question':row[1], 'context':row[3]} for row in doc_ranks_filtered]
+    
+    # QA Inference
+    qa_model = QAModel(config.qasystem.task_name, config.qasystem.model_name)
+    qa_res = qa_model(qa_input, train=False)
+    qa_answers = [row['answer'] for row in qa_res]
+
+    # QA Final Result
+    qa_result = []
+    for (qd_set, ans) in zip(doc_ranks_filtered, qa_answers):
+        qa_result.append([qd_set[0], qd_set[1], ans, qd_set[2], qd_set[3]])
+
+    print(qa_result)
+
+    [f.write('\t'.join(result) + '\n') for result in qa_result]
+    f.close()
+    
     ## Final MS marco evaluation scores
-    scores = compute_metrics_from_files(gt_file, output_file)
-    print(scores)
+    # scores = compute_metrics_from_files(gt_file, output_file)
+    # print(scores)
 
 
 

@@ -1,4 +1,3 @@
-
 import torch.nn as nn
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -31,4 +30,8 @@ class QAModel(nn.Module):
         if not train:
             return result
         else:
+<<<<<<< HEAD
             return None ## Include only if training the model
+=======
+            return None ## Include only if training the model
+>>>>>>> 0a424ae7cd8e163eddb21a35eab9e1f414b0089d
