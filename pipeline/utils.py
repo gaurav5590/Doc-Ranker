@@ -26,7 +26,7 @@ def vectorize_fullranking_data(config, pipeline):
         query_all_text += [query_passage_dict[query_id][0]] * len(query_passage_dict[query_id][2])
         doc_all_ids += query_passage_dict[query_id][1]
         doc_all_text += query_passage_dict[query_id][2]
-        if count ==10:
+        if count == 10:
             break
         count +=1
 
