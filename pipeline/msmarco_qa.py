@@ -55,7 +55,7 @@ if __name__ == '__main__':
     output_file = os.path.join(curr_dir, config.evaluator.output_file)
     gt_file = os.path.join(curr_dir, config.evaluator.ground_truth_file)
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
-    f = open(output_file, "w")
+    f = open(output_file, "w", encoding='utf-8')
 
     ### Create a dictionary to store fullraraking output
     query_all_ids, query_all_text, doc_all_ids, doc_all_text = utils.vectorize_fullranking_data(config, pipeline)
@@ -90,7 +90,7 @@ if __name__ == '__main__':
     doc_ranks_filtered = [row for row in doc_ranks if row[5]<=config.qasystem.size]
 
     # Prepare QA input
-    qa_input = [{'question':q_text, 'context':doc_text} for row in doc_ranks_filtered]
+    qa_input = [{'question':row[1], 'context':row[3]} for row in doc_ranks_filtered]
     
     # QA Inference
     qa_model = QAModel(config.qasystem.task_name, config.qasystem.model_name)
@@ -99,17 +99,17 @@ if __name__ == '__main__':
 
     # QA Final Result
     qa_result = []
-    for (qd_set, ans) in zip(doc_ranks_filtered, answers):
+    for (qd_set, ans) in zip(doc_ranks_filtered, qa_answers):
         qa_result.append([qd_set[0], qd_set[1], ans, qd_set[2], qd_set[3]])
 
-
+    print(qa_result)
 
     [f.write('\t'.join(result) + '\n') for result in qa_result]
     f.close()
-
+    
     ## Final MS marco evaluation scores
-    scores = compute_metrics_from_files(gt_file, output_file)
-    print(scores)
+    # scores = compute_metrics_from_files(gt_file, output_file)
+    # print(scores)
 
 
 
