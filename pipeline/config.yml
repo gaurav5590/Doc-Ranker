@@ -14,7 +14,7 @@ create_index:
       refresh: true
 
 query_creator:
-  size: 10
+  size: 2
   field: "content"
   query_pack_name: "query"
 
