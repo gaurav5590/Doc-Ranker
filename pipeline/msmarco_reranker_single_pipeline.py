@@ -17,6 +17,8 @@ from ms_marco_evaluator import MSMarcoEvaluator
 from transformers import AutoTokenizer
 from model import MSMarcoTransformerModel
 from bert_reranking_processor import BertRerankingProcessor
+from qa_processor import QAProcessor
+from qa_evaluator import QAEvaluator
 from ms_marco_eval import compute_metrics_from_files
 import utils
 
@@ -40,14 +42,27 @@ if __name__ == '__main__':
     pipeline.set_reader(EvalReader(), config = config.reader)
     pipeline.add(ElasticSearchQueryCreator(), config=config.query_creator)
     pipeline.add(ElasticSearchProcessor(), config=config.full_ranker)
-    pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
+    #pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
     pipeline.add(BertRerankingProcessor(), config=config.reranker)
+    pipeline.add(QAProcessor(), config = config.qa_system)
+    pipeline.add(QAEvaluator(), config = config.qa_evaluator)
+    #pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
     pipeline.initialize()
 
     ## Full ranking using elastic search
     for idx, m_pack in enumerate(pipeline.process_dataset(input_file)):
         if (idx + 1) % 2 == 0:
             print(f"Processed {idx + 1} examples")
+        if idx == 10:
+            break
+
+    score = pipeline.components[-1].get_result()
+    print("Score after QA:", score)
+    # print("Printing")
+    # for elem in pipeline.components[-1].predicted_results:
+    #     print(elem)
+
+
 
 
 
