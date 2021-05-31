@@ -25,38 +25,41 @@ from forte.common.resources import Resources
 from forte.data.multi_pack import MultiPack
 from forte.data.ontology import Query
 from forte.processors.base import MultiPackProcessor
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 
 __all__ = [
     "BertRerankingProcessor"
 ]
 
 
-class BertRerankingProcessor(MultiPackProcessor):
+class QAProcessor(MultiPackProcessor):
 
     def initialize(self, resources: Resources, configs: Config):
         self.resources = resources
         self.config = Config(configs, self.default_configs())
 
-        #print(self.config)
+        print(self.config)
         self.device = torch.device('cuda:0') \
             if torch.cuda.is_available() else torch.device('cpu')
 
-        self.model = AutoModelForSequenceClassification.from_pretrained(self.config.model_name).to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(self.config.model_name)
+        # self.model = AutoModelForSequenceClassification.from_pretrained(self.config.model_name).to(self.device)
+        # self.tokenizer = AutoTokenizer.from_pretrained(self.config.model_name)
+        self.qa_pipeline = pipeline(self.config.task_name, model=self.config.model_name, tokenizer=self.config.model_name)
         
 
     @classmethod
     def default_configs(cls) -> Dict[str, Any]:
         configs = super().default_configs()
-        model_name = 'amberoad/bert-multilingual-passage-reranking-msmarco'
+        model_name = 'deepset/roberta-base-squad2'
+        task_name = 'question-answering'
         configs.update({
             "size": 5,
             "query_pack_name": "query",
             "field": "content",
             "model_dir": os.path.join(os.path.dirname(__file__), "models"),
             "max_seq_length": 512,
-            "model_name": model_name
+            "model_name": model_name,
+            "task_name": task_name
         })
         return configs
 
@@ -67,27 +70,20 @@ class BertRerankingProcessor(MultiPackProcessor):
         query_pack = input_pack.get_pack(self.config.query_pack_name)
         query_entry = list(query_pack.get(Query))[0]
         query_text = query_pack.text
-        #print(input_pack.pack_ids)
-        #print(type(list(query_entry.results.values())[0]))
-
+        doc_score_dict = query_entry.results
+        best_doc_id = max(doc_score_dict, key = lambda x: doc_score_dict[x])
         packs = {}
-        #print(query_entry, 'Here', query_pack.get(Query))
-        #print(query_entry, "Before")
-        for doc_id in input_pack.pack_names:
 
+        for doc_id in input_pack.pack_names:
             if doc_id == query_pack_name:
                 continue
             pack = input_pack.get_pack(doc_id)
-            document_text = pack.text
             doc_id_final = pack.pack_name
-             # ## BERT Inference
-            encodings = self.tokenizer(query_text, document_text, padding = True, max_length=max_len, return_tensors= 'pt')
-            # model.eval()
-            with torch.no_grad():
-                logits = self.model(**encodings)
-            pt_predictions = torch.nn.functional.softmax(logits[0], dim=1)
-            score = pt_predictions.tolist()[0][1]
-
-            query_entry.update_results({doc_id_final: score})
+            if(doc_id_final!=best_doc_id):
+                query_entry.update_results({doc_id_final: ""})
+                continue
+            query_doc_input = {'question':query_text, 'context': pack.text}
+            result = self.qa_pipeline(query_doc_input)
+            answer = result['answer']
+            query_entry.update_results({doc_id_final: answer})
             packs[doc_id] = pack
-        #print(query_entry, "After")

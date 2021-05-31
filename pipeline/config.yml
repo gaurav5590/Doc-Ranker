@@ -42,10 +42,19 @@ reranker:
   model_name: 'amberoad/bert-multilingual-passage-reranking-msmarco'
   max_seq_length: 512
 
-qasystem:
-  size: 2
+qa_system:
+  size: 1
   task_name: "question-answering"
   model_name: "deepset/roberta-base-squad2"
+
+qa_evaluator:
+  pack_name: "query"
+  ground_truth_file: "../data/dev_small_qa_references.json"
+  filtered_gt_file: "../data/dev_small_qa_references_filtered.json"
+  output_file: "output/qa_results.json"
+  max_bleu_order: 4
+
+
 
 
 
