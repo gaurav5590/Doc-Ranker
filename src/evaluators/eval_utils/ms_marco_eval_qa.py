@@ -16,8 +16,8 @@ import json
 import sys
 import spacy
 
-from bleu import Bleu
-from rouge import Rouge
+from src.evaluators.eval_utils.bleu import Bleu
+from src.evaluators.eval_utils.rouge import Rouge
 from spacy.lang.en import English as NlpEnglish
 nlp = spacy.load('en_core_web_lg') 
 QUERY_ID_JSON_ID = 'query_id'
