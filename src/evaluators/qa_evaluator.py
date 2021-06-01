@@ -21,9 +21,7 @@ from forte.data.data_pack import DataPack
 from forte.evaluation.base import Evaluator
 from forte.data.multi_pack import MultiPack
 from forte.data.ontology import Query
-
-from ms_marco_eval import compute_metrics_from_files
-from ms_marco_eval_qa import compute_metrics_from_files
+from src.evaluators.eval_utils.ms_marco_eval_qa import compute_metrics_from_files
 
 
 
@@ -65,11 +63,18 @@ class QAEvaluator(Evaluator[MultiPack]):
 
         #     self._score = compute_metrics_from_files(gt_file, output_file)
         # return self._score
-        curr_dir = os.path.dirname(__file__)
-        output_file = os.path.join(curr_dir, self.configs.output_file)
-        gt_file = os.path.join(curr_dir, self.configs.ground_truth_file)
-        filtered_gt_file = os.path.join(curr_dir, self.configs.filtered_gt_file)
+        # curr_dir = os.path.dirname(__file__)
+        # output_file = os.path.join(curr_dir, self.configs.output_file)
+        # gt_file = os.path.join(curr_dir, self.configs.ground_truth_file)
+        # filtered_gt_file = os.path.join(curr_dir, self.configs.filtered_gt_file)
+        output_file = self.configs.output_file
+        gt_file = self.configs.ground_truth_file
+        filtered_gt_file = self.configs.filtered_gt_file
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
+        if os.path.exists(output_file):
+            os.remove(output_file)
+        if os.path.exists(filtered_gt_file):
+            os.remove(filtered_gt_file)
 
         # res = [
         #     (300674, 'this is query', 101, 'this is passage text', 'this is answer'),

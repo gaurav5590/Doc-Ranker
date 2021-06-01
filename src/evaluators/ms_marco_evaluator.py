@@ -22,7 +22,7 @@ from forte.evaluation.base import Evaluator
 from forte.data.multi_pack import MultiPack
 from forte.data.ontology import Query
 
-from ms_marco_eval import compute_metrics_from_files
+from src.evaluators.eval_utils.ms_marco_eval import compute_metrics_from_files
 
 
 class MSMarcoEvaluator(Evaluator[MultiPack]):
@@ -56,9 +56,13 @@ class MSMarcoEvaluator(Evaluator[MultiPack]):
             rank += 1
 
     def get_result(self):
-        curr_dir = os.path.dirname(__file__)
-        output_file = os.path.join(curr_dir, self.configs.output_file)
-        gt_file = os.path.join(curr_dir, self.configs.ground_truth_file)
+        # curr_dir = os.path.dirname(__file__)
+        # output_file = os.path.join(curr_dir, self.configs.output_file)
+        # gt_file = os.path.join(curr_dir, self.configs.ground_truth_file)
+        # os.makedirs(os.path.dirname(output_file), exist_ok=True)
+
+        output_file = self.configs.output_file
+        gt_file = self.configs.ground_truth_file
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
         if self._score is None:

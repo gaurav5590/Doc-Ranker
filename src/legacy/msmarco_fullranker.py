@@ -12,8 +12,8 @@ from forte.data.multi_pack import MultiPack
 from forte.pipeline import Pipeline
 from forte.processors.ir import (ElasticSearchQueryCreator, ElasticSearchProcessor)
 from forte.data.readers import MSMarcoPassageReader
-from query_file_reader import EvalReader
-from ms_marco_evaluator import MSMarcoEvaluator
+from src.query_file_reader import EvalReader
+from src.ms_marco_evaluator import MSMarcoEvaluator
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--config_file", default="./config.yml",

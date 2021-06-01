@@ -15,8 +15,8 @@ from forte.data.readers import MSMarcoPassageReader
 from query_file_reader import EvalReader
 from ms_marco_evaluator import MSMarcoEvaluator
 from transformers import AutoTokenizer
-from model import MSMarcoTransformerModel, QAModel
-from ms_marco_eval import compute_metrics_from_files
+from src.model import MSMarcoTransformerModel, QAModel
+from src.ms_marco_eval import compute_metrics_from_files
 import utils
 
 if __name__ == '__main__':
