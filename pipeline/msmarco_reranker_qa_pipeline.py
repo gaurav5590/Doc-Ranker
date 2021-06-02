@@ -3,6 +3,9 @@ Script to index MAMARCO documents
 """
 import argparse
 import os
+import sys
+sys.path.append('.')
+import time
 
 import yaml
 from forte.common.configuration import Config
@@ -19,6 +22,8 @@ from src.evaluators.qa_evaluator import QAEvaluator
 #import utils
 
 if __name__ == '__main__':
+
+    start_time = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument("--config_file", default="./config.yml",
                         help="Config YAML filepath")
@@ -38,7 +43,7 @@ if __name__ == '__main__':
     pipeline.set_reader(EvalReader(), config = config.reader)
     pipeline.add(ElasticSearchQueryCreator(), config=config.query_creator)
     pipeline.add(ElasticSearchProcessor(), config=config.full_ranker)
-    #pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
+    pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
     pipeline.add(BertRerankingProcessor(), config=config.reranker)
     pipeline.add(QAProcessor(), config = config.qa_system)
     pipeline.add(QAEvaluator(), config = config.qa_evaluator)
@@ -47,10 +52,12 @@ if __name__ == '__main__':
 
     ## Full ranking using elastic search
     for idx, m_pack in enumerate(pipeline.process_dataset(input_file)):
-        if (idx + 1) % 2 == 0:
+        if (idx + 1) % 5 == 0:
             print(f"Processed {idx + 1} examples")
-        if idx == 5:
+        if (idx + 1) == 10:
             break
 
     score = pipeline.components[-1].get_result()
     print("Score after QA:", score)
+
+    print("Process finished --- %s seconds ---" % (time.time() - start_time))

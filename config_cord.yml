@@ -1,0 +1,56 @@
+create_index:
+  batch_size: 10000
+  fields:
+    - doc_id
+    - content
+  indexer:
+    name: "ElasticSearchIndexer"
+    hparams:
+      index_name: "elastic_index_cord"
+      hosts: "localhost:9200"
+      algorithm: "bm25"
+    other_kwargs:
+      request_timeout: 60
+      refresh: true
+
+query_creator:
+  size: 10
+  field: "content"
+  query_pack_name: "query"
+
+full_ranker:
+  query_pack_name: "query"
+  index_config:
+    index_name: "elastic_index_cord"
+    hosts: "localhost:9200"
+    algorithm: "bm25"
+  field: "content"
+  response_pack_name_prefix: "passage"
+
+
+# evaluator:
+#   pack_name: "query"  
+#   ground_truth_file: "data/collectionandqueries/qrels.dev.small.tsv"
+#   input_file: "data/collectionandqueries/queries.dev.small.tsv"
+#   output_file: "output/reranker_results_dev.tsv"
+
+reader:
+  pack_name: "query"
+
+reranker:
+  size: 10
+  model_name: 'amberoad/bert-multilingual-passage-reranking-msmarco'
+  max_seq_length: 512
+
+qa_system:
+  size: 1
+  task_name: "question-answering"
+  model_name: "deepset/roberta-base-squad2"
+
+qa_evaluator:
+  pack_name: "query"
+  input_file: "data/covidqa_queries.tsv"
+  ground_truth_file: "data/covidqa_references.json"
+  filtered_gt_file: "data/covidqa_references_filtered.json"
+  output_file: "output/covid_qa_results.json"
+  max_bleu_order: 4
