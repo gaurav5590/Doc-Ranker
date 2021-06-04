@@ -72,6 +72,8 @@ class QAProcessor(MultiPackProcessor):
         query_entry = list(query_pack.get(Query))[0]
         query_text = query_pack.text
         doc_score_dict = query_entry.results
+        # print('Query: ', query_text, '\n')
+        # print('doc_score_dict: ', doc_score_dict, '\n')
         best_doc_id = max(doc_score_dict, key = lambda x: doc_score_dict[x])
         packs = {}
 
@@ -86,5 +88,7 @@ class QAProcessor(MultiPackProcessor):
             query_doc_input = {'question':query_text, 'context': pack.text}
             result = self.qa_pipeline(query_doc_input)
             answer = result['answer']
+
+            # print(answer)
             query_entry.update_results({doc_id_final: answer})
             packs[doc_id] = pack

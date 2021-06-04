@@ -44,7 +44,7 @@ if __name__ == '__main__':
     pipeline.add(ElasticSearchQueryCreator(), config=config.query_creator)
     pipeline.add(ElasticSearchProcessor(), config=config.full_ranker)
     #pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
-    pipeline.add(BertRerankingProcessor(), config=config.reranker)
+    # pipeline.add(BertRerankingProcessor(), config=config.reranker)
     pipeline.add(QAProcessor(), config = config.qa_system)
     pipeline.add(QAEvaluator(), config = config.qa_evaluator)
     #pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
@@ -53,8 +53,8 @@ if __name__ == '__main__':
     ## Full ranking using elastic search
     for idx, m_pack in enumerate(pipeline.process_dataset(input_file)):
         if (idx + 1) % 5 == 0:
-            print(f"Processed {idx + 1} examples")
-        if (idx + 1) == 10:
+            print(f"Processed {idx + 1} examples ------------------------------")
+        if (idx + 1) == 100:
             break
 
     score = pipeline.components[-1].get_result()
