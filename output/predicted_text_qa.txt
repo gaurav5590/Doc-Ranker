@@ -1,15 +1,15 @@
 1048585	what is paula deen's brother
-	7187155	Brian Killian/WireImage. Paula Deen and her brother Earl W. âBubbaâ Hiers are being sued by a former general manager at Uncle Bubbaâs Seafood and Oyster House, a restaurant they co-own.
-	Earl W. âBubbaâ
+	7617404	Celebrity chef Paula Deen denies she's ever told racial jokes, but she did acknowledge using the N word, according to her deposition in a lawsuit. A former manager at Deen's restaurants in Savannah, Georgia, is suing her and her brother for sexual and racial harassment.
+	sexual and racial harassment.
 2	 Androgen receptor define
-	4339068	The androgen receptor (AR), also known as NR3C4 (nuclear receptor subfamily 3, group C, member 4), is a type of nuclear receptor that is activated by binding either of the androgenic hormones, testosterone, or dihydrotestosterone in the cytoplasm and then translocating into the nucleus.n some cell types, testosterone interacts directly with androgen receptors, whereas, in others, testosterone is converted by 5-alpha-reductase to dihydrotestosterone, an even more potent agonist for androgen receptor activation.
-	(AR),
+	7496505	Normal function of the androgen receptor. Testosterone (T) enters the cell and, if 5-alpha-reductase is present, is converted into dihydrotestone (DHT).Upon steroid binding, the androgen receptor (AR) undergoes a conformational change and releases heat-shock proteins (hsps).n some cell types, testosterone interacts directly with androgen receptors, whereas, in others, testosterone is converted by 5-alpha-reductase to dihydrotestosterone, an even more potent agonist for androgen receptor activation.
+	(AR)
 524332	treating tension headaches without medication
-	7552020	Lifestyle and home remedies. Rest, ice packs or a long, hot shower may be all you need to relieve a tension headache. A variety of strategies can help reduce the severity and frequency of chronic tension headaches without using medicine. Manage your stress level.
-	chronic tension headaches without using medicine.
+	1194314	1 Muscle relaxants: These medications work by relieving muscle tension and stiffness. 2  Tizanidine (Zanaflex) is an example of a muscle relaxant used to treat tension headaches. 3  Opioids: Also known as narcotics, opioids pack a powerful punch when it comes to treating your tension headache pain.or example, you may need a daily prescription medication to relieve chronic migraines, or you may need to take a medication to prevent migraines and headaches. To learn more about preventing migraines and headaches with medication, read our article on preventive medications for migraines and headaches.
+	Muscle relaxants:
 1048642	what is paranoid sc
-	3798	Paranoid schizophrenia, schizophrenia, paranoid type is a sub-type of schizophrenia as defined in the Diagnostic and Statistical Manual of Mental Disorders, DSM-IV code 295.30. It has been the most common type of schizophrenia.
-	a sub-type of schizophrenia
+	7187023	Paranoid schizophrenia is a psychotic disorder. In-depth information on symptoms, causes, treatment of paranoid schizophrenia. Find this Pin and more on Schizophrenia by healthyplace. Paranoid schizophrenia is a psychotic disorder. In-depth information on symptoms, causes, treatment of paranoid schizophrenia. See More
+	Paranoid schizophrenia
 524447	treatment of varicose veins in legs
 	3541560	The most conservative treatment for varicose veins in the feet and legs is compression therapy, which involves wearing specially fitted compression stockings that exert pressure on the legs and feet, reducing the diameter of the varicose veins and improving blood circulation.
 	compression therapy,
@@ -20,20 +20,20 @@
 	7887619	A flashback into the life of Dr. Donald Mallard is abound on NCIS season 12. We learned that The CBS series has tapped Mixology actor Brit Adam Campbell to play young Ducky in an October episode. The flashbacks will shed light on Duckyâs past relationships as well as revealâ¦ why he always wears bow ties.
 	Brit Adam Campbell
 1048917	what is operating system misconfiguration
-	8081890	Windows operating system misconfiguration is the main cause of Website Not Responding Recover Webpage error codes. Therefore, we strongly suggest using the downloadable Website Not Responding Recover Webpage Repair Kit to fix Website Not Responding Recover Webpage errors.
-	the main cause of Website Not Responding Recover Webpage error codes.
+	1332696	Windows operating system misconfiguration is the main cause of Dde Server Window At Shutdown error codes. Therefore, we strongly suggest using the downloadable Dde Server Window At Shutdown Repair Kit to fix Dde Server Window At Shutdown errors.
+	the main cause of Dde Server Window At Shutdown error codes.
 786786	what is priority pass
 	7807976	Priority Pass. Priority Pass is an independent airport lounge access program. A membership provides you with access to their network of over 700 lounges worldwide. These lounges are managed by a variety of airlines and companies, meaning that there is significant variation among them â but great international coverage.
 	an independent airport lounge access program.
 524699	tricare service number
-	587128	Quick Answer. As of April 2015, the phone number for the south region of TRICARE is 800-444-5445, states TRICARE. The contractor that provides benefits in the region is Humana. Customer service representatives are available at that number between 8 a.m. and 6 p.m. Monday through Friday, according to Humana. Continue Reading.
+	7349682	As of April 2015, the phone number for the south region of TRICARE is 800-444-5445, states TRICARE. The contractor that provides benefits in the region is Humana. Customer service representatives are... As of April 2015, the phone number for the south region of TRICARE is 800-444-5445, states TRICARE.
 	800-444-5445,
 1048995	who proposed the geocentric theory
 	6217200	The geocentric model, also known as the Ptolemaic system, is a theory that was developed by philosophers in Ancient Greece and was named after the philosopher Claudius Ptolemy who lived circa 90 to 168 A.D. It was developed to explain how the planets, the Sun, and even the stars orbit around the Earth.opernicus proposed a heliocentric model of the solar system â a model where everything orbited around the Sun. Today, with advancements in science and technology, the geocentric model seems preposterous.
 	Claudius Ptolemy
 786857	what is probability biology
-	7777221	PROBABILITY AND GENETICS. Probability is the study of the likelihood of the occurrence of a particular event or offspring. The chance or probability that an event will take place can be expressed as a fraction (1/4), ratio (1:4) or % (25%). Probability = # of chances for an event. # of possible combinations.
-	the study of the likelihood of the occurrence of a particular event or offspring.
+	1289057	In biology, it is used in predicting the outcome of a genetic cross or of a random experiment. Related term(s): Joint probability; Personal probability; Posterior probability; Conditional probability; Probability sample; Probability learning; Probability curve; Prior probability; Probability theory
+	used in predicting the outcome of a genetic cross or of a random experiment.
 524722	tricuspid atresia definition
 	7471189	Tricuspid atresia. Definition. Tricuspid atresia is a type of heart disease that is present at birth (congenital heart disease), in which the tricuspid heart valve is missing or abnormally developed. The defect blocks blood flow from the right atrium to the right ventricle.
 	Tricuspid atresia is a type of heart disease
@@ -44,25 +44,25 @@
 	7623633	Definition of TRIGEMINAL. : of or relating to the trigeminal nerve.ADVERTISEMENT. of or relating to the trigeminal nerve. ADVERTISEMENT.
 	: of or relating to the trigeminal nerve.ADVERTISEMENT.
 786918	what is process control equipment
-	3613013	What is process control? Process control is an algorithm that is used in the during the manufacturing process in the industries for the active changing process based on the output of process monitoring.
-	an algorithm
+	23685	Another application of process control systems is the type of equipment that serves as automatic measuring and gauging systems that apply process control to the product as it is moving along the production line.
+	automatic measuring and gauging systems
 786937	what is process improvement (lean six sigma)
-	7867876	Process Improvement is a systematic approach to problem solving related to the assessment, analysis and improvement of organizational processes. Lean Six Sigma is an improvement methodology that focuses on continuously improving all of the processes within an organization in the ultimate pursuit of perfection. It provides a framework to reduce variation and strives to eliminate waste.
-	a systematic approach to problem solving
+	997090	What is Lean Six Sigma? At its most basic, Lean Six Sigma is a data-driven, team-based, and structured approach to solving business problems. It is a powerful process improvement methodology that combines the waste reduction focus and tools inherent in Lean with the cultural, structural and analytical methods of Six Sigma. The DMAIC process (Define-Measure-Analyze-Improve-Control) provides the overriding structure to solve problems.
+	a powerful process improvement methodology
 1049085	what is on the outside of dna
-	901032	The sugar-phosphate backbone is on the outside and the four different bases are on the inside of the DNA molecule. The two strands of the double helix are anti-parallel, which means that they run in opposite directions.The sugar-phosphate backbone is on the outside of the helix, and the bases are on the inside.nstead, it was Franklin's famous photograph 51 that finally revealed the helical structure of DNA to Watson and Crick in 1953. This picture of DNA that had been crystallized under moist conditions shows a fuzzy X in the middle of the molecule, a pattern indicating a helical structure.
-	The sugar-phosphate backbone
+	2573887	Extrachromosomal DNA. Extrachromosomal DNA is any DNA that is found outside of the nucleus of a cell. It is also referred to as extranuclear DNA or cytoplasmic DNA. Most DNA in an individual genome is found in chromosomes but DNA found outside of the nucleus also serves important biological functions.
+	Extrachromosomal DNA.
 262232	how long is a day on ven
-	4798207	A day on Earth is determined by how long it takes the planet to spin once on its axis. That's pretty easy to measure, because Earth's surface is solid. Just sit there for about 24 hours, 3 minutes and 56.55 seconds, on average, and measure the time between two sunrises.
-	how long it takes the planet to spin once on its axis.
+	1493579	Length of day. The length of the day is how long a day is. On Earth, it is 24 hours long. There are other planets with different types of day. 1 Length of the day on other planets.
+	24 hours long.
 524835	tristesse definition
 	7499564	Tristesse is a French word meaning sadness. Tristesse may also refer to; Bonjour Tristesse (Hello Sadness), a 1954 novel by FranÃ§oise Sagan. Bonjour Tristesse (film), a 1958 film of the novel. Tristesse Hivernale, a demo by black metal Neige-led band Alcest, released in 2001.
 	sadness.
 524848	trivex lenses cost
-	7670356	Trivex lenses ($200 for single vision, $400 for progressives) are more scratch-resistant than either CR-39 or polycarbonate lenses. They can be useful if you wear rimless or semi-rimless frames, or if youâre hard on glasses.
-	($200
+	1458340	Cost. Trivex eyeglasses are more expensive as anything is new and better. You have two options, trivex lenses and polycarbonate eyeglass lenses if you want impact resistant and comfortable lenses with UV protection for your eyes.rivex eyeglasses are more expensive as anything is new and better. You have two options, trivex lenses and polycarbonate eyeglass lenses if you want impact resistant and comfortable lenses with UV protection for your eyes.
+	Trivex eyeglasses are more expensive
 1049200	who recorded loving you
-	4112148	This feature is not available right now. Please try again later. I Can't Stop Loving You is a popular song written and composed by country singer, songwriter and musician Don Gibson, who first recorded it on December 30, 1957, for RCA Victor Records. It was released in 1958 as the B-side of Oh, Lonesome Me, becoming a double-sided country hit single. The song was also recorded by Ray Charles in 1962 and released from Charles' groundbreaking Modern Sounds in Country and Western Music album.
+	2216925	I Can't Stop Loving You is a popular song written and composed by country singer, songwriter and musician Don Gibson, who first recorded it on December  30, 1957, for RCA Victor Records. It was released in 1958 as the B-side of Oh, Lonesome Me, becoming a double-sided country hit single.
 	Don Gibson,
 1049221	who recorded the song still the one?
 	2764534	Still the One. Still the One is a song written by Johanna Hall and John Hall, and recorded by the soft rock group Orleans on their album Waking and Dreaming, released in 1976, which made it to No. 5 on the Billboard Hot 100. Country singer Bill Anderson recorded and released a successful cover version, peaking at No. 11 on Billboard's Hot Country Singles chart in 1977.

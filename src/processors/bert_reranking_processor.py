@@ -29,6 +29,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import transformers, logging
 transformers.logging.set_verbosity_error()
 logging.getLogger("transformers.tokenization_utils_base").setLevel(logging.ERROR)
+import warnings
+warnings.simplefilter("ignore")
 
 
 __all__ = [
@@ -42,7 +44,7 @@ class BertRerankingProcessor(MultiPackProcessor):
         self.resources = resources
         self.config = Config(configs, self.default_configs())
 
-        print(self.config)
+        #print(self.config)
         self.device = torch.device('cuda:0') \
             if torch.cuda.is_available() else torch.device('cpu')
 
