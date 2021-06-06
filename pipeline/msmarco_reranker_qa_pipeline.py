@@ -32,18 +32,17 @@ if __name__ == '__main__':
     config = Config(config, default_hparams=None)
 
     # reading query input file
-    input_file = config.evaluator.input_file
+    input_file = config.fullranker_evaluator.input_file
 
     pipeline = Pipeline[MultiPack]()
     pipeline.set_reader(EvalReader(), config = config.reader)
     pipeline.add(ElasticSearchQueryCreator(), config=config.query_creator)
     pipeline.add(ElasticSearchProcessor(), config=config.full_ranker)
-    #pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
+    pipeline.add(MSMarcoEvaluator(), config = config.fullranker_evaluator)
     pipeline.add(BertRerankingProcessor(), config=config.reranker)
-    pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
+    pipeline.add(MSMarcoEvaluator(), config = config.reranker_evaluator)
     pipeline.add(QAProcessor(), config = config.qa_system)
     pipeline.add(QAEvaluator(), config = config.qa_evaluator)
-    #pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
     pipeline.initialize()
 
     ## Full ranking using elastic search
@@ -57,7 +56,12 @@ if __name__ == '__main__':
         if(idx == 22):
             break
 
-    mrr_score = pipeline.components[-3].get_result()
-    print("MRR score", mrr_score)
+    score_10, score_100 = pipeline.components[-5].get_result()
+    print("Score after Full-Ranking @10:", score_10)
+    print("Score after Full-Ranking @100:", score_100)
+    
+    score_10, score_100 = pipeline.components[-3].get_result()
+    print("Score after Re-Ranking @10:", score_10)
+    print("Score after Re-Ranking @100:", score_100)
     score = pipeline.components[-1].get_result()
     print("Score after QA:", score)
