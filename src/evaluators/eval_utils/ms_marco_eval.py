@@ -132,11 +132,24 @@ def compute_metrics(qids_to_relevant_passageids, qids_to_ranked_candidate_passag
         raise IOError("No matching QIDs found. Are you sure you are scoring the evaluation set?")
     
     MRR = MRR/len(qids_to_relevant_passageids)
-    all_scores['MRR @10'] = MRR
+
+    recall_num = 0
+    for qid in qids_to_ranked_candidate_passages:
+        if qid in qids_to_relevant_passageids:
+            target_pid = qids_to_relevant_passageids[qid]
+            candidate_pid = qids_to_ranked_candidate_passages[qid]
+            for tid in target_pid:
+                if tid in candidate_pid[:MaxMRRRank]:
+                    recall_num +=1
+                    break
+    
+    recall = recall_num / len(qids_to_ranked_candidate_passages)
+    all_scores['MRR'] = MRR
+    all_scores['Recall'] = recall
     all_scores['QueriesRanked'] = len(qids_to_ranked_candidate_passages)
     return all_scores
                 
-def compute_metrics_from_files(path_to_reference, path_to_candidate, perform_checks=True):
+def compute_metrics_from_files(path_to_reference, path_to_candidate, max_rank, perform_checks=True):
     """Compute MRR metric
     Args:    
     p_path_to_reference_file (str): path to reference file.
@@ -152,7 +165,8 @@ def compute_metrics_from_files(path_to_reference, path_to_candidate, perform_che
     Returns:
         dict: dictionary of metrics {'MRR': <MRR Score>}
     """
-    
+    global MaxMRRRank
+    MaxMRRRank = max_rank
     qids_to_relevant_passageids = load_reference(path_to_reference)
     qids_to_ranked_candidate_passages = load_candidate(path_to_candidate)
     if perform_checks:

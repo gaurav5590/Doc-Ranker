@@ -28,11 +28,11 @@ full_ranker:
   response_pack_name_prefix: "passage"
 
 
-evaluator:
+fullranker_evaluator:
   pack_name: "query"
   ground_truth_file: "data/collectionandqueries/qrels.dev.small.tsv"
   input_file: "data/collectionandqueries/queries.dev.small.tsv"
-  output_file: "output/reranker_results_dev.tsv"
+  output_file: "output/fullranker_results_dev.tsv"
 
 reader:
   pack_name: "query"
@@ -42,6 +42,13 @@ reranker:
   model_name: 'amberoad/bert-multilingual-passage-reranking-msmarco'
   max_seq_length: 512
   batch_size: 64
+
+reranker_evaluator:
+  pack_name: "query"
+  ground_truth_file: "data/collectionandqueries/qrels.dev.small.tsv"
+  input_file: "data/collectionandqueries/queries.dev.small.tsv"
+  output_file: "output/reranker_results_dev.tsv"
+
 
 
 qa_system:
