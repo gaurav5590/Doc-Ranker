@@ -113,6 +113,8 @@ def compute_metrics(qids_to_relevant_passageids, qids_to_ranked_candidate_passag
     Returns:
         dict: dictionary of metrics {'MRR': <MRR Score>}
     """
+    # print(qids_to_relevant_passageids)
+    print(qids_to_ranked_candidate_passages)
     all_scores = {}
     MRR = 0
     qids_with_relevant_passages = 0

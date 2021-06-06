@@ -104,8 +104,8 @@ class BertRerankingProcessor(MultiPackProcessor):
             # pt_predictions = torch.nn.functional.softmax(logits[0], dim=1)
             # score = pt_predictions.tolist()[0][1]
 
-            doc_chunks = doc_chunks_creator(document_text, chunk_len=3, stride=3)
-            print(len(doc_chunks))
+            doc_chunks = doc_chunks_creator(document_text, chunk_len=10, stride=10)
+            # print(len(doc_chunks))
             # Bert Inference
             encodings = self.tokenizer([query_text] * len(doc_chunks), doc_chunks, padding = True, 
                                 max_length=max_len, return_tensors= 'pt')
@@ -118,9 +118,9 @@ class BertRerankingProcessor(MultiPackProcessor):
             scores = pt_predictions[:,1]
             max_score, max_idx = torch.max(scores, dim=0)
 
-            print('\nDoc chunk with max score:', max_score, doc_chunks[max_idx])
+            # print('\nDoc chunk with max score:', max_score, doc_chunks[max_idx])
             # max_score=1
 
-            query_entry.update_results({doc_id_final: max_score})
+            query_entry.update_results({doc_id_final: max_score.item()})
             packs[doc_id] = pack
         #print(query_entry, "After")
