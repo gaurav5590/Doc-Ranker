@@ -70,11 +70,14 @@ class QAEvaluator(Evaluator[MultiPack]):
         output_file = self.configs.output_file
         gt_file = self.configs.ground_truth_file
         filtered_gt_file = self.configs.filtered_gt_file
+        predict_file = self.configs.predicted_output_file
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
         if os.path.exists(output_file):
             os.remove(output_file)
         if os.path.exists(filtered_gt_file):
             os.remove(filtered_gt_file)
+        if os.path.exists(predict_file):
+            os.remove(predict_file)
 
         # res = [
         #     (300674, 'this is query', 101, 'this is passage text', 'this is answer'),
@@ -83,10 +86,17 @@ class QAEvaluator(Evaluator[MultiPack]):
         #     (89786, 'this is query', 104, 'this is passage text', 'this is answer'),
         # ]
 
+
+        ## Save predicted results in a file
+        with open(predict_file, 'w') as writer:
+            for row in self.predicted_results:
+                to_write = "\t".join(list(row))
+                writer.write(to_write+ "\n")
+
         # Convert the self.predicted results to json style
         for row in self.predicted_results:
             row_dict = {'query_id':int(row[0]), 'answers':[row[-1]]}
-            print(row_dict)
+            #print(row_dict)
             with open(output_file, 'a', newline='\n') as fp:
                 json.dump(row_dict, fp)
                 fp.write('\n')
@@ -122,4 +132,5 @@ class QAEvaluator(Evaluator[MultiPack]):
             'input_file': None,
             'max_bleu_order': None,
             'filtered_gt_file' : None,
+            'predicted_output_file': None,
         }

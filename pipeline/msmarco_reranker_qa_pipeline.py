@@ -3,7 +3,7 @@ Script to index MAMARCO documents
 """
 import argparse
 import os
-
+import time
 import yaml
 from forte.common.configuration import Config
 from forte.data.data_pack import DataPack
@@ -40,17 +40,24 @@ if __name__ == '__main__':
     pipeline.add(ElasticSearchProcessor(), config=config.full_ranker)
     #pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
     pipeline.add(BertRerankingProcessor(), config=config.reranker)
+    pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
     pipeline.add(QAProcessor(), config = config.qa_system)
     pipeline.add(QAEvaluator(), config = config.qa_evaluator)
     #pipeline.add(MSMarcoEvaluator(), config = config.evaluator)
     pipeline.initialize()
 
     ## Full ranking using elastic search
+    start = time.time()
     for idx, m_pack in enumerate(pipeline.process_dataset(input_file)):
-        if (idx + 1) % 2 == 0:
-            print(f"Processed {idx + 1} examples")
-        if idx == 5:
+        # if (idx + 1) % 2 == 0:
+        #     print(f"Processed {idx + 1} examples")
+        if idx % 5 == 0:
+            print("Full-Ranking Size:{}, QA size: {}, Queries processed: {}, Time elapsed: {}"
+            .format(config.reranker.size, config.qa_system.size, idx, time.time() - start))
+        if(idx == 22):
             break
 
+    mrr_score = pipeline.components[-3].get_result()
+    print("MRR score", mrr_score)
     score = pipeline.components[-1].get_result()
     print("Score after QA:", score)
