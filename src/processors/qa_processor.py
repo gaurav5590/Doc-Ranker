@@ -67,7 +67,6 @@ class QAProcessor(MultiPackProcessor):
     def _process(self, input_pack: MultiPack):
         max_len = self.config.max_seq_length
         query_pack_name = self.config.query_pack_name
-
         query_pack = input_pack.get_pack(self.config.query_pack_name)
         query_entry = list(query_pack.get(Query))[0]
         query_text = query_pack.text

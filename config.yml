@@ -41,6 +41,8 @@ reranker:
   size: 1000
   model_name: 'amberoad/bert-multilingual-passage-reranking-msmarco'
   max_seq_length: 512
+  batch_size: 64
+
 
 qa_system:
   size: 1
@@ -51,6 +53,7 @@ qa_evaluator:
   pack_name: "query"
   ground_truth_file: "data/dev_small_qa_references.json"
   filtered_gt_file: "data/dev_small_qa_references_filtered.json"
+  predicted_output_file: "output/predicted_text_qa.txt"
   output_file: "output/qa_results.json"
   max_bleu_order: 4
 
