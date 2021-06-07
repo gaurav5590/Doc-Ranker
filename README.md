@@ -1,4 +1,4 @@
-|                   |             | <td colspan=3>Full ranker  <td colspan=3> |         |           |            | Reranker |         |           |            | QA     |        |        |        |         |           |        |       |              |
+|                   |             | <td colspan=3>Full ranker  <td colspan=3>                                 | Reranker |         |           |            | QA     |        |        |        |         |           |        |       |              |
 |-------------------|-------------|--------------|---------|-----------|------------|----------|---------|-----------|------------|--------|--------|--------|--------|---------|-----------|--------|-------|--------------|
 | Full Ranking Size | Time (mins) | MRR@10       | MRR@100 | Recall@10 | Recall@100 | MRR@10   | MRR@100 | Recall@10 | Recall@100 | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | ROUGE-L | PRECISION | RECALL | F1    | Semantic Sim |
 | 1                 |             |              |         |           |            |          |         |           |            |        |        |        |        |         |           |        |       |              |
