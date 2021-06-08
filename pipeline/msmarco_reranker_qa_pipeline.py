@@ -50,10 +50,10 @@ if __name__ == '__main__':
     for idx, m_pack in enumerate(pipeline.process_dataset(input_file)):
         # if (idx + 1) % 2 == 0:
         #     print(f"Processed {idx + 1} examples")
-        if idx % 5 == 0:
+        if (idx+1) % 2 == 0:
             print("Full-Ranking Size:{}, QA size: {}, Queries processed: {}, Time elapsed: {}"
-            .format(config.reranker.size, config.qa_system.size, idx, time.time() - start))
-        if(idx == 22):
+            .format(config.reranker.size, config.qa_system.size, idx + 1, time.time() - start))
+        if(idx+1 == 10):
             break
 
     score_10, score_100 = pipeline.components[-5].get_result()
