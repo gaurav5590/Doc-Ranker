@@ -86,7 +86,7 @@ class QAEvaluator(Evaluator[MultiPack]):
         # Convert the self.predicted results to json style
         for row in self.predicted_results:
             row_dict = {'query_id':int(row[0]), 'answers':[row[-1]]}
-            print(row_dict)
+            # print(row_dict)
             with open(output_file, 'a', newline='\n') as fp:
                 json.dump(row_dict, fp)
                 fp.write('\n')

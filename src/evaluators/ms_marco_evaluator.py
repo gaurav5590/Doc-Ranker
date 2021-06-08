@@ -29,8 +29,8 @@ class MSMarcoEvaluator(Evaluator[MultiPack]):
     def __init__(self):
         super().__init__()
         self.predicted_results: List[Tuple[str, str, str]] = []
-        # self.predicted_text: List[Tuple[str,str, str, str, str]] = []
-        self._score: Optional[float] = None
+        self._score_1: Optional[float] = None
+        self._score_2: Optional[float] = None
 
     def consume_next(self, pred_pack: MultiPack, _):
         #print(self.configs.pack_name)
@@ -38,23 +38,9 @@ class MSMarcoEvaluator(Evaluator[MultiPack]):
         query = list(query_pack.get(Query))[0]
         query_text = query_pack.text
         #print(pred_pack.get_pack('passage_6').text)
-        
-        # print(pred_pack)
-        # print(pred_pack.pack_names)
-        # print("query_results: ", query.results)
-        # print('query_results_items: ', query.results.items())
-        
-        # rank = 1
-        # for p_name in pred_pack.pack_names:
-        #     if p_name!=self.configs.pack_name:
-        #         passage_text = pred_pack.get_pack(p_name).text
-        #         passage_id = pred_pack.get_pack(p_name).pack_name
-        #         self.predicted_text.append((query_pack.pack_name, query_text, passage_id, passage_text, str(rank)))
-        #         rank+=1
-        
-        rank = 1
+
         sorted_query_results = sorted(list(query.results.items()), key=lambda x: x[1], reverse=True)
-        # print('query_results_items_sorted: ', sorted_query_results)
+        rank = 1
         for pid, _ in sorted_query_results:
             doc_id: Optional[str] = query_pack.pack_name
             if doc_id is None:
@@ -74,13 +60,16 @@ class MSMarcoEvaluator(Evaluator[MultiPack]):
         gt_file = self.configs.ground_truth_file
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
-        if self._score is None:
+        if self._score_1 is None:
             with open(output_file, "w") as f:
                 for result in self.predicted_results:
                     f.write('\t'.join(result) + '\n')
 
-            self._score = compute_metrics_from_files(gt_file, output_file)
-        return self._score
+
+            ## Finds MRR ranks for two max MRR sizes
+            self._score_1 = compute_metrics_from_files(gt_file, output_file, 10)
+            self._score_2 = compute_metrics_from_files(gt_file, output_file, 100)
+        return self._score_1, self._score_2
 
     @classmethod
     def default_configs(cls):

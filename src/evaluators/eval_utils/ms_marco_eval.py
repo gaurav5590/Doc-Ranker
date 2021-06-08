@@ -2,7 +2,6 @@
 This module computes evaluation metrics for MSMARCO dataset on the ranking task. Intenral hard coded eval files version. DO NOT PUBLISH!
 Command line:
 python msmarco_eval_ranking.py <path_to_candidate_file>
-
 Creation Date : 06/12/2018
 Last Modified : 4/09/2019
 Authors : Daniel Campos <dacamp@microsoft.com>, Rutger van Haasteren <ruvanh@microsoft.com>
@@ -77,7 +76,6 @@ def load_candidate(path_to_candidate):
 
 def quality_checks_qids(qids_to_relevant_passageids, qids_to_ranked_candidate_passages):
     """Perform quality checks on the dictionaries
-
     Args:
     p_qids_to_relevant_passageids (dict): dictionary of query-passage mapping
         Dict as read in with load_reference or load_reference_from_stream
@@ -113,8 +111,6 @@ def compute_metrics(qids_to_relevant_passageids, qids_to_ranked_candidate_passag
     Returns:
         dict: dictionary of metrics {'MRR': <MRR Score>}
     """
-    # print(qids_to_relevant_passageids)
-    print(qids_to_ranked_candidate_passages)
     all_scores = {}
     MRR = 0
     qids_with_relevant_passages = 0
@@ -133,12 +129,27 @@ def compute_metrics(qids_to_relevant_passageids, qids_to_ranked_candidate_passag
     if len(ranking) == 0:
         raise IOError("No matching QIDs found. Are you sure you are scoring the evaluation set?")
     
-    MRR = MRR/len(qids_to_relevant_passageids)
-    all_scores['MRR @10'] = MRR
+    # print(len(qids_to_relevant_passageids))
+    # MRR = MRR/len(qids_to_relevant_passageids)
+    MRR = MRR/len(qids_to_ranked_candidate_passages)
+
+    recall_num = 0
+    for qid in qids_to_ranked_candidate_passages:
+        if qid in qids_to_relevant_passageids:
+            target_pid = qids_to_relevant_passageids[qid]
+            candidate_pid = qids_to_ranked_candidate_passages[qid]
+            for tid in target_pid:
+                if tid in candidate_pid[:MaxMRRRank]:
+                    recall_num +=1
+                    break
+    
+    recall = recall_num / len(qids_to_ranked_candidate_passages)
+    all_scores['MRR'] = MRR
+    all_scores['Recall'] = recall
     all_scores['QueriesRanked'] = len(qids_to_ranked_candidate_passages)
     return all_scores
                 
-def compute_metrics_from_files(path_to_reference, path_to_candidate, perform_checks=True):
+def compute_metrics_from_files(path_to_reference, path_to_candidate, max_rank, perform_checks=True):
     """Compute MRR metric
     Args:    
     p_path_to_reference_file (str): path to reference file.
@@ -154,7 +165,8 @@ def compute_metrics_from_files(path_to_reference, path_to_candidate, perform_che
     Returns:
         dict: dictionary of metrics {'MRR': <MRR Score>}
     """
-    
+    global MaxMRRRank
+    MaxMRRRank = max_rank
     qids_to_relevant_passageids = load_reference(path_to_reference)
     qids_to_ranked_candidate_passages = load_candidate(path_to_candidate)
     if perform_checks:
