@@ -27,6 +27,8 @@ from forte.data.ontology import Query
 from forte.processors.base import MultiPackProcessor
 from transformers import pipeline
 import transformers
+import spacy
+spacy_nlp = spacy.load("en_core_web_sm")
 transformers.logging.set_verbosity_error()
 
 __all__ = [
@@ -84,6 +86,22 @@ class QAProcessor(MultiPackProcessor):
                 continue
             query_doc_input = {'question':query_text, 'context': pack.text}
             result = self.qa_pipeline(query_doc_input)
-            answer = result['answer']
+            # answer = result['answer']
+            
+            # Changing answer phrase to the whole sentence where it is present
+            # print("====Full Passage Text: ", pack.text)
+            # print("====Answer Phrase: ", result['answer'])
+            answer_phrase = result['answer']
+            ans_sents = [sent.text for sent in spacy_nlp(pack.text).sents]
+            # print("====Passage Sentences: ", ans_sents)
+            answer = None
+            for sent in ans_sents:
+                if answer_phrase in sent:
+                    answer = sent
+                    break
+            if not answer:
+                answer = answer_phrase
+
+            # print("====Final Answer Sentence: ", answer)
             query_entry.update_results({doc_id_final: answer})
             packs[doc_id] = pack

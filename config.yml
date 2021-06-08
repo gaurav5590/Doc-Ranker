@@ -14,7 +14,7 @@ create_index:
       refresh: true
 
 query_creator:
-  size: 10
+  size: 1000
   field: "content"
   query_pack_name: "query"
 
@@ -38,10 +38,10 @@ reader:
   pack_name: "query"
 
 reranker:
-  size: 10
+  size: 1000
   model_name: 'amberoad/bert-multilingual-passage-reranking-msmarco'
   max_seq_length: 512
-  batch_size: 64
+  batch_size: 256
 
 reranker_evaluator:
   pack_name: "query"
