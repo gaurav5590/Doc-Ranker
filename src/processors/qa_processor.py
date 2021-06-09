@@ -56,7 +56,7 @@ class QAProcessor(MultiPackProcessor):
     @classmethod
     def default_configs(cls) -> Dict[str, Any]:
         configs = super().default_configs()
-        model_name = 'deepset/roberta-base-squad2'
+        model_name = 'deepset/roberta-base-squad2-covid'
         task_name = 'question-answering'
         configs.update({
             "size": 5,

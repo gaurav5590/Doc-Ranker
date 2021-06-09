@@ -15,7 +15,8 @@ from forte.processors.ir import (ElasticSearchQueryCreator, ElasticSearchProcess
 
 from src.readers.query_file_reader import EvalReader
 from src.evaluators.ms_marco_evaluator import MSMarcoEvaluator
-from src.processors.bert_covid_reranking_processor import BertRerankingProcessor
+# from src.processors.bert_covid_reranking_processor import BertRerankingProcessor
+from src.processors.bert_reranking_processor import BertRerankingProcessor
 from src.processors.qa_processor import QAProcessor
 from src.evaluators.qa_evaluator import QAEvaluator
 #import utils
@@ -52,10 +53,10 @@ if __name__ == '__main__':
     for idx, m_pack in enumerate(pipeline.process_dataset(input_file)):
         # if (idx + 1) % 2 == 0:
         #     print(f"Processed {idx + 1} examples")
-        if (idx + 1) % 1 == 0:
+        if (idx + 1) % 10 == 0:
             print("Full-Ranking Size:{}, QA size: {}, Queries processed: {}, Time elapsed: {}"
             .format(config.reranker.size, config.qa_system.size, idx+1, time.time() - start))
-        if (idx + 1) == 1:
+        if (idx + 1) == 100:
             break
 
     # score_10, score_100 = pipeline.components[-5].get_result()

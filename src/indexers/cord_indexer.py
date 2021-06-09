@@ -15,7 +15,9 @@ from src.processors.elastic_search_index_processor import ElasticSearchTextIndex
 # from forte.processors.ir import ElasticSearchPackIndexProcessor
 # from forte.data.readers import MSMarcoPassageReader
 # from src.readers.ms_marco_passage_reader import MSMarcoPassageReader
-from src.readers.cord_reader import CORDReader
+# from src.readers.cord_reader import CORDReader
+# from src.readers.ms_marco_passage_reader import MSMarcoPassageReader
+from src.readers.cord_passage_reader import CordPassageReader
 
 
 
@@ -31,7 +33,8 @@ def main(dataset_dir: str):
 
     pipeline = Pipeline[DataPack]()
 
-    pipeline.set_reader(CORDReader())
+    # pipeline.set_reader(CORDReader())
+    pipeline.set_reader(CordPassageReader())
     pipeline.add(ElasticSearchTextIndexProcessor(), config=config.create_index)
     # pipeline.add(ElasticSearchPackIndexProcessor(), config=config.create_index)
     pipeline.run(dataset_dir)
@@ -41,7 +44,8 @@ def main(dataset_dir: str):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", type=str,
-                    default="data/document_parses/pdf_json/",
+                    # default="data/document_parses/pdf_json/",
+                    default="data/",
                     help="Data directory to read the collections tsv file from")
 
     args = parser.parse_args()
