@@ -94,12 +94,18 @@ class QAEvaluator(Evaluator[MultiPack]):
         ## Filter the gt file to only self.predicted results query set
         q_ids = list(zip(*self.predicted_results))[0]
         q_ids = [int(x) for x in q_ids]
+        print('q_ids0: ', q_ids[0])
         with open(gt_file,'r') as f:
+            print(gt_file)
             for line in f:
                 ans = eval(line)
+                print(ans['query_id'] )
         #         print(ans['query_id'] in q_ids)
                 if ans['query_id'] in q_ids:
+                    print('inside if')
                     with open(filtered_gt_file, 'a') as fp:
+                        # print(filtered_gt_file)
+                        # print(ans)
                         json.dump(ans, fp)
                         fp.write('\n')
 

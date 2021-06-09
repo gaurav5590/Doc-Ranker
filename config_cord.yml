@@ -27,12 +27,18 @@ full_ranker:
   field: "content"
   response_pack_name_prefix: "passage"
 
+fullranker_evaluator:
+  pack_name: "query"
+  ground_truth_file: "data/collectionandqueries/qrels.dev.small.tsv"
+  input_file: "data/covidqa_queries.tsv"
+  output_file: "output/fullranker_results_dev.tsv"
 
-# evaluator:
-#   pack_name: "query"  
-#   ground_truth_file: "data/collectionandqueries/qrels.dev.small.tsv"
-#   input_file: "data/collectionandqueries/queries.dev.small.tsv"
-#   output_file: "output/reranker_results_dev.tsv"
+reranker_evaluator:
+  pack_name: "query"
+  ground_truth_file: "data/collectionandqueries/qrels.dev.small.tsv"
+  input_file: "data/covidqa_queries.tsv"
+  output_file: "output/reranker_results_dev.tsv"
+
 
 reader:
   pack_name: "query"
