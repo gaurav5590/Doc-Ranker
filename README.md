@@ -2,6 +2,8 @@
 
 End-to-end Ranking and Question-Answering (QA) system using [Forte](https://github.com/asyml), a toolkit that makes composable NLP pipelines.
 
+You can read the full report [here](https://gaurav5590.github.io/data/UCSD_CASL_Research_Gaurav_Murali.pdf)
+
 ## Tasks
 * Build an end-to-end QA system with following components
     * **Full-ranker** using ElasticSearch indexer and BM25 algorithm
