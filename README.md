@@ -13,11 +13,14 @@ End-to-end Ranking and Question-Answering (QA) system using [Forte](https://gith
 
 ## Datasets
 The task has been implemented using two sets of datasets:
-* **MS-MARCO QA:** MS-MARCO passage ranking dataset and QA dataset
-* **Covid QA:** CORD-19 dataset and Covid-QA dataset
+* **MS-MARCO QA:** [MS-MARCO](https://microsoft.github.io/msmarco/) passage ranking dataset and QA dataset
+* **Covid QA:** [CORD-19](https://allenai.org/data/cord-19) dataset and [Covid-QA](https://www.aclweb.org/anthology/2020.nlpcovid19-acl.18/) dataset
 
 
 ## How to run the Pipeline
+* Make sure the following datasets are present in `data/` folder
+    * `collectionandqueries/`
+    * 
 
 * Run the followng commands:
     * On Linux/Mac Run `export PYTHONPATH="$(pwd):$PYTHONPATH`
@@ -32,12 +35,16 @@ The task has been implemented using two sets of datasets:
 
 * Results are saved in `output` folder
 
+## Pipeline Information Flow
+
+![](https://i.imgur.com/pJ0CHEq.png)
+
 
 ## Experiment Results
 
 ### MS-MARCO
 
-#### Result on 1000 queries with multiple re-ranking sizes
+#### Result on 1000 queries from dev.small with multiple re-ranking sizes
 
 |                   |             | Full Ranking |         |           |            | Reranker |         |           |            | QA     |        |        |        |         |           |        |      |              |
 |-------------------|-------------|--------------|---------|-----------|------------|----------|---------|-----------|------------|--------|--------|--------|--------|---------|-----------|--------|------|--------------|
@@ -55,10 +62,17 @@ The task has been implemented using two sets of datasets:
 ### Covid-19
 
 
-#### Results on 2019 queries with 1000 ranking size
+#### Results on all covid-qa queries with multiple re-ranking sizes
 
 |                   |                    | QA     |        |        |        |         |           |        |      |              |
 |-------------------|--------------------|--------|--------|--------|--------|---------|-----------|--------|------|--------------|
 | Re-Ranking Size | Time per Query(s) | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | ROUGE-L | PRECISION | RECALL | F1   | Semantic Sim |
 | 100               | 1.21               | 0.20   | 0.15   | 0.13   | 0.12   | 0.22    | 0.18      | 0.29   | 0.22 | 0.71         |
 | 1000              | 6.64               | 0.20   | 0.15   | 0.13   | 0.12   | 0.22    | 0.18      | 0.29   | 0.22 | 0.71         |
+
+## Acknowledgements
+We would like to thank Professor Dr. Zhiting Hu and Dr. Zhengzhong (Hector) Liu for guiding us throughout the project. We also extend our gratitude towards Petuum Inc. for providing us the computing support needed to run our pipeline on GPU.
+
+## Contact
+Murali Mohana Krishna Dandu - `mdandu@ucsd.edu`
+Gaurav Kumar - `gkumar@ucsd.edu`
