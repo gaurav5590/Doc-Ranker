@@ -8,6 +8,7 @@ End-to-end Ranking and Question-Answering (QA) system using [Forte](https://gith
     * **Re-ranker** using BERT
     * **Question-Answering** using BERT
 
+![](https://i.imgur.com/W3OhFXQ.png)
 
 
 ## Datasets
@@ -40,7 +41,7 @@ The task has been implemented using two sets of datasets:
 
 |                   |             | Full Ranking |         |           |            | Reranker |         |           |            | QA     |        |        |        |         |           |        |      |              |
 |-------------------|-------------|--------------|---------|-----------|------------|----------|---------|-----------|------------|--------|--------|--------|--------|---------|-----------|--------|------|--------------|
-| Re-Ranking Size | Time (mins) | MRR@10       | MRR@100 | Recall@10 | Recall@100 | MRR@10   | MRR@100 | Recall@10 | Recall@100 | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | ROUGE-L | PRECISION | RECALL | F1   | Semantic Sim |
+| Re-Ranking Size | Time per Query(s) | MRR@10       | MRR@100 | Recall@10 | Recall@100 | MRR@10   | MRR@100 | Recall@10 | Recall@100 | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | ROUGE-L | PRECISION | RECALL | F1   | Semantic Sim |
 | 1                 | 0.49        | 0.09         | 0.09    | 0.09      | 0.09       | 0.09     | 0.09    | 0.09      | 0.09       | 0.24   | 0.15   | 0.11   | 0.09   | 0.22    | 0.20      | 0.23   | 0.21 | 0.75         |
 | 10                | 0.56        | 0.16         | 0.16    | 0.34      | 0.34       | 0.23     | 0.23    | 0.34      | 0.34       | 0.30   | 0.21   | 0.17   | 0.15   | 0.29    | 0.26      | 0.32   | 0.29 | 0.79         |
 | 50                | 0.85        | 0.16         | 0.17    | 0.34      | 0.50       | 0.28     | 0.28    | 0.45      | 0.50       | 0.31   | 0.23   | 0.19   | 0.17   | 0.31    | 0.27      | 0.34   | 0.30 | 0.79         |
@@ -58,9 +59,6 @@ The task has been implemented using two sets of datasets:
 
 |                   |                    | QA     |        |        |        |         |           |        |      |              |
 |-------------------|--------------------|--------|--------|--------|--------|---------|-----------|--------|------|--------------|
-| Re-Ranking Size | Time per query (s) | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | ROUGE-L | PRECISION | RECALL | F1   | Semantic Sim |
+| Re-Ranking Size | Time per Query(s) | BLEU-1 | BLEU-2 | BLEU-3 | BLEU-4 | ROUGE-L | PRECISION | RECALL | F1   | Semantic Sim |
 | 100               | 1.21               | 0.20   | 0.15   | 0.13   | 0.12   | 0.22    | 0.18      | 0.29   | 0.22 | 0.71         |
 | 1000              | 6.64               | 0.20   | 0.15   | 0.13   | 0.12   | 0.22    | 0.18      | 0.29   | 0.22 | 0.71         |
-
-
-
