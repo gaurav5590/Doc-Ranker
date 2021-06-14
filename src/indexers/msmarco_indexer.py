@@ -25,7 +25,6 @@ def main(dataset_dir: str):
     config = Config(config, default_hparams=None)
 
     pipeline = Pipeline[DataPack]()
-
     pipeline.set_reader(MSMarcoPassageReader())
     pipeline.add(ElasticSearchTextIndexProcessor(), config=config.create_index)
     pipeline.run(dataset_dir)

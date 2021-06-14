@@ -100,7 +100,8 @@ class BertRerankingProcessor(MultiPackProcessor):
             end = (i+1) * batch_size
             if(end > len(doc_text_list)):
                 end = len(doc_text_list)
-            encodings = self.tokenizer(query_text_list[start:end], doc_text_list[start:end], padding = True, model_max_length=max_len, return_tensors= 'pt').to(self.device)      
+            encodings = self.tokenizer(query_text_list[start:end], doc_text_list[start:end], padding = True, 
+                                        truncation=True, max_length=max_len, return_tensors= 'pt').to(self.device)      
             self.model.eval()
             with torch.no_grad():
                 logits = self.model(**encodings)
