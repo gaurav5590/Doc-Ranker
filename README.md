@@ -10,7 +10,7 @@ You can read the full report [here](https://gaurav5590.github.io/data/UCSD_CASL_
     * **Re-ranker** using BERT
     * **Question-Answering** using BERT
 
-![](https://i.imgur.com/W3OhFXQ.png | width=100)
+<img src="https://i.imgur.com/W3OhFXQ.png" alt="alt text" width="300" height="250">
 
 ## Datasets
 The task has been implemented using two sets of datasets:
