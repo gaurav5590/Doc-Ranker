@@ -18,10 +18,7 @@ The task has been implemented using two sets of datasets:
 
 
 ## How to run the Pipeline
-* Make sure the following datasets are present in `data/` folder
-    * `collectionandqueries/`
-    * 
-
+* Make sure the input and reference file paths are properly set in `config.yml`
 * Run the followng commands:
     * On Linux/Mac Run `export PYTHONPATH="$(pwd):$PYTHONPATH`
     * On windows add the code to the file to be run`import sys; sys.path.append('.')`
@@ -34,6 +31,7 @@ The task has been implemented using two sets of datasets:
     * Run `pipeline/msmarco_reranker_qa_pipeline.py --config_file config.yml`
 
 * Results are saved in `output` folder
+* **Changes to be done for Covid QA:** Change `config_cord.yml`. Run the `cord_indexer.py` to index the cord-19 documents and `cord_reranker_qa_pipeline.py` to get the answers
 
 ## Pipeline Information Flow
 
@@ -74,5 +72,7 @@ The task has been implemented using two sets of datasets:
 We would like to thank Professor Dr. Zhiting Hu and Dr. Zhengzhong (Hector) Liu for guiding us throughout the project. We also extend our gratitude towards Petuum Inc. for providing us the computing support needed to run our pipeline on GPU.
 
 ## Contact
-Murali Mohana Krishna Dandu - `mdandu@ucsd.edu`
-Gaurav Kumar - `gkumar@ucsd.edu`
+Murali Mohana Krishna Dandu - `mdandu@ucsd.edu` [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/muralimohanakrishna/)
+&nbsp;
+Gaurav Kumar - `gkumar@ucsd.edu` [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/gauravkumar5590/)
+&nbsp;
