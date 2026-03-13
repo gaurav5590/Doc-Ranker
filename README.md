@@ -28,7 +28,7 @@ The task has been implemented using two sets of datasets:
     * Run `python src/indexers/msmarco_indexer.py --config_file config.yml` 
 
 * Run pipeline
-    * Modify `config.yml` with proper dataset name, filenames, re-ranking size.
+    * Modify `config.yml` with proper dataset name, filenames, and re-ranking size.
     * Run `pipeline/msmarco_reranker_qa_pipeline.py --config_file config.yml`
 
 * Results are saved in `output` folder
